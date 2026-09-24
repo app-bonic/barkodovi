@@ -1,0 +1,35 @@
+.raspored { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 980px) { .raspored { grid-template-columns: 380px minmax(0, 1fr); } }
+.generator { margin-top: 12px; font-size: 14px; }
+.generator summary { cursor: pointer; font-weight: 600; color: var(--akcent-jak); }
+.vlastito { grid-column: 1 / -1; }
+.poruke { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.poruke:empty { display: none; }
+.jedan:empty { display: none; }
+.jedan { margin-top: 14px; background: #fff; border-radius: 10px; border: 1px solid var(--crta); padding: 18px; display: grid; place-items: center; }
+.jedan svg { max-width: 100%; height: auto; max-height: 220px; }
+
+.arci { display: flex; flex-direction: column; gap: 18px; align-items: center; }
+.arak-omot { width: 100%; overflow: hidden; }
+.arak {
+  position: relative; width: 210mm; height: 297mm; background: #fff; color: #000;
+  box-shadow: 0 2px 14px rgb(0 0 0 / .15); transform-origin: top left;
+}
+.naljepnica { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 2.5mm 3.5mm; gap: .8mm; }
+.naljepnica.okvir { outline: .2mm dashed #999; outline-offset: -.1mm; }
+.naljepnica svg { max-width: 100%; max-height: 100%; min-height: 0; flex: 1 1 auto; width: auto; height: auto; }
+.naljepnica .opis { font: 600 3.2mm/1.1 Arial, Helvetica, sans-serif; text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: none; }
+.naljepnica.prazna { background: repeating-linear-gradient(45deg, transparent 0 3mm, #f1f5f9 3mm 6mm); }
+.naljepnica.greska { color: #b91c1c; font: 2.6mm Arial, sans-serif; text-align: center; }
+
+@media print {
+  @page { size: A4; margin: 0; }
+  body { display: block; }
+  .ab-omot, main { max-width: none; padding: 0; margin: 0; }
+  .raspored { display: block; }
+  .arci { gap: 0; display: block; }
+  .arak-omot { overflow: visible; height: auto !important; }
+  .arak { box-shadow: none; transform: none !important; break-after: page; page-break-after: always; }
+  .arak:last-child { break-after: auto; page-break-after: auto; }
+  .naljepnica.prazna { background: none; }
+}

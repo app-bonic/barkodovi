@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barkodovi i naljepnice</title>
+<meta name="description" content="Izradi barkodove (EAN-13, EAN-8, Code128, Code39, ITF-14, QR, DataMatrix) i arke naljepnica za ispis na A4. Besplatno, u pregledniku.">
+<link rel="icon" href="zajednicko/logo.svg">
+<link rel="stylesheet" href="zajednicko/app-bonic.css">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body data-alat="barkodovi">
+<header class="ab-vrh"></header>
+
+<main class="ab-omot">
+  <section class="ab-uvod ne-ispisuj">
+    <span class="ab-ikona"><span data-ik="barkod"></span></span>
+    <div>
+      <h1>Barkodovi i naljepnice</h1>
+      <p>Upiši jedan kod ili cijeli popis i dobiješ barkodove spremne za ispis na arke samoljepljivih naljepnica (A4). EAN kontrolna znamenka se računa sama.</p>
+    </div>
+  </section>
+
+  <div class="raspored">
+    <div class="slog ne-ispisuj">
+      <section class="kartica">
+        <h2>Kodovi</h2>
+        <div class="forma">
+          <div class="polje puno"><label for="vrsta">Vrsta barkoda</label>
+            <select id="vrsta">
+              <option value="ean13">EAN-13 — proizvodi u trgovini</option>
+              <option value="ean8">EAN-8 — mali proizvodi</option>
+              <option value="upca">UPC-A — SAD / Kanada</option>
+              <option value="code128" selected>Code 128 — slova i brojke (inventar, paketi)</option>
+              <option value="code39">Code 39 — industrija, stariji skeneri</option>
+              <option value="itf14">ITF-14 — transportne kutije</option>
+              <option value="qrcode">QR kod</option>
+              <option value="datamatrix">DataMatrix</option>
+            </select></div>
+          <div class="polje puno"><label for="kodovi">Jedan kod po retku <small>opcionalno: kod; opis ispod</small></label>
+            <textarea id="kodovi" class="mono" rows="7" placeholder="INV-0001; Laptop Dell&#10;INV-0002; Monitor 24&quot;"></textarea>
+            <small class="pomoc" id="kodoviInfo"></small></div>
+        </div>
+        <details class="generator">
+          <summary>Generiraj niz brojeva (npr. INV-0001 … INV-0100)</summary>
+          <div class="forma" style="margin-top:10px">
+            <div class="polje"><label for="gPrefiks">Prefiks</label><input id="gPrefiks" value="INV-"></div>
+            <div class="polje"><label for="gSufiks">Sufiks</label><input id="gSufiks"></div>
+            <div class="polje"><label for="gOd">Od broja</label><input id="gOd" type="number" value="1"></div>
+            <div class="polje"><label for="gKoliko">Koliko</label><input id="gKoliko" type="number" value="24" min="1" max="2000"></div>
+            <div class="polje"><label for="gZnam">Znamenki (vodeće nule)</label><input id="gZnam" type="number" value="4" min="1" max="12"></div>
+            <div class="polje" style="align-self:end"><button type="button" class="gumb" id="generiraj">Ubaci u popis</button></div>
+          </div>
+        </details>
+      </section>
+
+      <section class="kartica">
+        <h2>Izgled</h2>
+        <div class="forma">
+          <label class="kvacica puno"><input type="checkbox" id="tekstKoda" checked><span>Ispiši kod ispod barkoda</span></label>
+          <label class="kvacica puno"><input type="checkbox" id="okvir"><span>Tanki okvir oko naljepnice (za rezanje običnog papira)</span></label>
+          <div class="polje"><label for="kopija">Kopija svakog koda</label><input id="kopija" type="number" value="1" min="1" max="500"></div>
+          <div class="polje"><label for="preskoci">Preskoči prvih naljepnica <small>već iskorištene</small></label><input id="preskoci" type="number" value="0" min="0"></div>
+        </div>
+      </section>
+
+      <section class="kartica">
+        <h2>Arak naljepnica (A4)</h2>
+        <div class="forma">
+          <div class="polje puno"><label for="arak">Predložak</label>
+            <select id="arak">
+              <option value="3x7">21 po arku — 3 × 7 (70 × 42,3 mm)</option>
+              <option value="3x8" selected>24 po arku — 3 × 8 (70 × 37 mm)</option>
+              <option value="2x7">14 po arku — 2 × 7 (99,1 × 38,1 mm)</option>
+              <option value="4x10">40 po arku — 4 × 10 (48,5 × 25,4 mm)</option>
+              <option value="5x13">65 po arku — 5 × 13 (38,1 × 21,2 mm)</option>
+              <option value="1x1">1 po arku — cijeli A4</option>
+              <option value="vlastito">Vlastite mjere…</option>
+            </select></div>
+          <div class="vlastito puno forma" hidden>
+            <div class="polje"><label for="stupci">Stupaca</label><input id="stupci" type="number" value="3" min="1" max="10"></div>
+            <div class="polje"><label for="redovi">Redaka</label><input id="redovi" type="number" value="8" min="1" max="30"></div>
+            <div class="polje"><label for="sirina">Širina naljepnice (mm)</label><input id="sirina" type="number" value="70" step=".1"></div>
+            <div class="polje"><label for="visina">Visina naljepnice (mm)</label><input id="visina" type="number" value="37" step=".1"></div>
+            <div class="polje"><label for="razmakX">Razmak vodoravno (mm)</label><input id="razmakX" type="number" value="0" step=".1"></div>
+            <div class="polje"><label for="razmakY">Razmak okomito (mm)</label><input id="razmakY" type="number" value="0" step=".1"></div>
+          </div>
+        </div>
+        <p class="napomena" style="margin-top:10px">Kod ispisa odaberi veličinu papira A4, mjerilo 100 % („Stvarna veličina”) i isključi zaglavlja i podnožja preglednika.</p>
+      </section>
+    </div>
+
+    <div class="slog desno">
+      <section class="kartica ne-ispisuj">
+        <div class="gumbi">
+          <button type="button" class="gumb glavni veliki" id="ispisi"><span data-ik="ispis"></span>Ispiši naljepnice</button>
+          <button type="button" class="gumb" id="png"><span data-ik="preuzmi"></span>PNG</button>
+          <button type="button" class="gumb" id="svg"><span data-ik="preuzmi"></span>SVG</button>
+        </div>
+        <div id="poruke" class="poruke"></div>
+        <div class="jedan" id="jedan"></div>
+      </section>
+      <div class="arci" id="arci"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="ab-dno"></footer>
+<script src="zajednicko/app-bonic.js"></script>
+<script src="lib/bwip-js-min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
